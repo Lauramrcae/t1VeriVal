@@ -119,12 +119,56 @@ public class CentroDistribuicao {
         double qtdG;
         double qtdAd;
         double qtdAl;
-        if (TIPOPOSTO.COMUM == tipoPosto) {
-            switch (getSituacao()) {
-                case EMERGENCIA:
-                    retorno[0] = -14;
-                    return retorno;
-                case SOBRAVISO:
+        if (qtdade <= 0) {
+            retorno[0] = -7;
+            return retorno;
+        } else {
+            if (TIPOPOSTO.COMUM == tipoPosto) {
+                switch (getSituacao()) {
+                    case EMERGENCIA:
+                        retorno[0] = -14;
+                        return retorno;
+                    case SOBRAVISO:
+                        qtdade = qtdade / 2;
+                        qtdG = qtdade * 0.7;
+                        qtdAd = qtdade * 0.05;
+                        qtdAl = qtdade * 0.25;
+                        if (qtdG > gettGasolina() || qtdAd > gettAditivo() || qtdAl > gettAlcool1() + gettAlcool2()) {
+                            retorno[0] = -21;
+                            return retorno;
+                        } else {
+                            tGasolina = tGasolina - (int) Math.round(qtdG);
+                            tAditivo = tAditivo - (int) Math.round(qtdAd);
+                            tAlcool1 = tAlcool1 - (int) Math.round(qtdAl / 2);
+                            tAlcool2 = tAlcool2 - (int) Math.round(qtdAl / 2);
+                            retorno[0] = tAditivo;
+                            retorno[1] = tGasolina;
+                            retorno[2] = tAlcool1;
+                            retorno[3] = tAlcool2;
+                            return retorno;
+                        }
+                    case NORMAL:
+                        qtdG = qtdade * 0.7;
+                        qtdAd = qtdade * 0.05;
+                        qtdAl = qtdade * 0.25;
+                        if (qtdG > gettGasolina() || qtdAd > gettAditivo() || qtdAl > gettAlcool1() + gettAlcool2()) {
+                            retorno[0] = -21;
+                            return retorno;
+                        } else {
+                            tGasolina = tGasolina - (int) Math.round(qtdG);
+                            tAditivo = tAditivo - (int) Math.round(qtdAd);
+                            tAlcool1 = tAlcool1 - (int) Math.round(qtdAl / 2);
+                            tAlcool2 = tAlcool2 - (int) Math.round(qtdAl / 2);
+                            retorno[0] = tAditivo;
+                            retorno[1] = tGasolina;
+                            retorno[2] = tAlcool1;
+                            retorno[3] = tAlcool2;
+                            return retorno;
+
+                        }
+                }
+            } else {
+                if (getSituacao() == SITUACAO.EMERGENCIA) {
                     qtdade = qtdade / 2;
                     qtdG = qtdade * 0.7;
                     qtdAd = qtdade * 0.05;
@@ -143,7 +187,7 @@ public class CentroDistribuicao {
                         retorno[3] = tAlcool2;
                         return retorno;
                     }
-                case NORMAL:
+                } else {
                     qtdG = qtdade * 0.7;
                     qtdAd = qtdade * 0.05;
                     qtdAl = qtdade * 0.25;
@@ -162,48 +206,9 @@ public class CentroDistribuicao {
                         return retorno;
 
                     }
-            }
-        } else {
-            if (getSituacao() == SITUACAO.EMERGENCIA) {
-                qtdade = qtdade / 2;
-                qtdG = qtdade * 0.7;
-                qtdAd = qtdade * 0.05;
-                qtdAl = qtdade * 0.25;
-                if (qtdG > gettGasolina() || qtdAd > gettAditivo() || qtdAl > gettAlcool1() + gettAlcool2()) {
-                    retorno[0] = -21;
-                    return retorno;
-                } else {
-                    tGasolina = tGasolina - (int) Math.round(qtdG);
-                    tAditivo = tAditivo - (int) Math.round(qtdAd);
-                    tAlcool1 = tAlcool1 - (int) Math.round(qtdAl / 2);
-                    tAlcool2 = tAlcool2 - (int) Math.round(qtdAl / 2);
-                    retorno[0] = tAditivo;
-                    retorno[1] = tGasolina;
-                    retorno[2] = tAlcool1;
-                    retorno[3] = tAlcool2;
-                    return retorno;
                 }
-            } else {
-                qtdG = qtdade * 0.7;
-                qtdAd = qtdade * 0.05;
-                qtdAl = qtdade * 0.25;
-                if (qtdG > gettGasolina() || qtdAd > gettAditivo() || qtdAl > gettAlcool1() + gettAlcool2()) {
-                    retorno[0] = -21;
-                    return retorno;
-                } else {
-                    tGasolina = tGasolina - (int) Math.round(qtdG);
-                    tAditivo = tAditivo - (int) Math.round(qtdAd);
-                    tAlcool1 = tAlcool1 - (int) Math.round(qtdAl / 2);
-                    tAlcool2 = tAlcool2 - (int) Math.round(qtdAl / 2);
-                    retorno[0] = tAditivo;
-                    retorno[1] = tGasolina;
-                    retorno[2] = tAlcool1;
-                    retorno[3] = tAlcool2;
-                    return retorno;
 
-                }
             }
-
         }
         return retorno;
 

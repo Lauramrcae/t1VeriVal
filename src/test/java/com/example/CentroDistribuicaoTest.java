@@ -102,6 +102,17 @@ public class CentroDistribuicaoTest {
         Assertions.assertEquals(result, -1);
     }
 
+    @ParameterizedTest
+    @CsvSource({ "500,10000,1250,1250,0",
+    "500,10000,1250,1250,-10"
+    })
+    public void testeEncomendaComValorInvalido(int adt, int gas, int al1, int al2, int qtd) {
+        cd = new CentroDistribuicao(adt, gas, al1, al2);
+        int expectedResult[] = new int[4];
+        expectedResult[0] = -7;
+        Assertions.assertArrayEquals(cd.encomendaCombustivel(qtd, TIPOPOSTO.COMUM), expectedResult);
+    }
+
     @Test
     public void testePostoComumSituacaoEmergencia() {
         cd = new CentroDistribuicao(0, 10000, 1250, 1250);
@@ -112,7 +123,6 @@ public class CentroDistribuicaoTest {
 
     @ParameterizedTest
     @CsvSource({ "500,10000,1250,1250,100"
-
     })
     public void testePostoComumSituacaoNormalComMisturaSuficiente(int adt, int gas, int al1, int al2, int qtd) {
         cd = new CentroDistribuicao(adt, gas, al1, al2);
