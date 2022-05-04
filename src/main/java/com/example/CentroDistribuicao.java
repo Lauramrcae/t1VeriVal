@@ -71,11 +71,9 @@ public class CentroDistribuicao {
         if (qtdade + tAditivo >= MAX_ADITIVO) {
             int valorAbastecido = MAX_ADITIVO - tAditivo;
             tAditivo = MAX_ADITIVO;
-            defineSituacao();
             return valorAbastecido;
         } else {
             tAditivo = tAditivo + qtdade;
-            defineSituacao();
             return qtdade;
         }
     }
@@ -87,11 +85,9 @@ public class CentroDistribuicao {
         if (qtdade + tGasolina >= MAX_GASOLINA) {
             int valorAbastecido = MAX_GASOLINA - tGasolina;
             tGasolina = MAX_GASOLINA;
-            defineSituacao();
             return valorAbastecido;
         } else {
             tGasolina = tGasolina + qtdade;
-            defineSituacao();
             return qtdade;
         }
     }
@@ -100,16 +96,14 @@ public class CentroDistribuicao {
         if (qtdade < 0) {
             return -1;
         }
-        if (qtdade + tAlcool1 + tAlcool2 > MAX_ALCOOL) {
+        if (qtdade + tAlcool1 + tAlcool2 >= MAX_ALCOOL) {
             int valorAbastecido = MAX_ALCOOL - tAlcool1 - tAlcool2;
             tAlcool1 = MAX_ALCOOL / 2;
             tAlcool2 = MAX_ALCOOL / 2;
-            defineSituacao();
             return valorAbastecido;
         } else {
             tAlcool1 = tAlcool1 + (qtdade / 2);
             tAlcool2 = tAlcool1;
-            defineSituacao();
             return qtdade;
         }
     }
