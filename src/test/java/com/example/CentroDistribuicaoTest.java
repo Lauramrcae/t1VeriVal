@@ -18,7 +18,15 @@ public class CentroDistribuicaoTest {
             "10,10,10,-10",
             "10,10,-10,10",
             "10, 10, 10, 5",
-            "10, 10, 5, 10"
+            "10, 10, 5, 10",
+            "0, 10, 5, 10",
+            "10, 0, 5, 10",
+            "10, 10, 0, 10",
+            "0, 10, 5, 0",
+            "501,10,10,10",
+            "10,10001,10,10",
+            "10,10,1251,10",
+            "10,10,10,1251"
     })
     public void testeControllerValoresInvalidos(int adt, int gas, int al1, int al2) {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -48,7 +56,7 @@ public class CentroDistribuicaoTest {
 
     @ParameterizedTest
     @CsvSource({ "124,2499,312,312",
-            "0,0,0,0"
+            "1,2,4,4"
     })
     public void testeSituacaoEmergencia(int adt, int gas, int al1, int al2) {
         cd = new CentroDistribuicao(adt, gas, al1, al2);
@@ -56,7 +64,6 @@ public class CentroDistribuicaoTest {
         Assertions.assertEquals(expectedResult, SITUACAO.EMERGENCIA);
     }
 
-    // fazer parametrizado com outros valores aqui!!!!
     @Test
     public void testeRecebeAditivoPositivo() {
         cd = new CentroDistribuicao(0, 10000, 1250, 1250);
@@ -64,7 +71,6 @@ public class CentroDistribuicaoTest {
         Assertions.assertEquals(result, 500);
     }
 
-    // fazer parametrizado com outros valores aqui!!!!
     @Test
     public void testeRecebeGasolinaPositivo() {
         cd = new CentroDistribuicao(0, 0, 1250, 1250);
@@ -72,7 +78,6 @@ public class CentroDistribuicaoTest {
         Assertions.assertEquals(result, 10000);
     }
 
-    // fazer parametrizado com outros valores aqui!!!!
     @Test
     public void testeRecebeAlcoolPositivo() {
         cd = new CentroDistribuicao(0, 0, 0, 0);
@@ -80,25 +85,36 @@ public class CentroDistribuicaoTest {
         Assertions.assertEquals(result, 900);
     }
 
-    @Test
-    public void testeRecebeAditivoNegativo() {
+    @ParameterizedTest
+    @CsvSource({ "501",
+    "0",
+    "-2"
+    })
+    public void testeRecebeAditivoValoresInvalidos(int adt) {
         cd = new CentroDistribuicao(0, 10000, 1250, 1250);
-        int result = cd.recebeAditivo(-10);
+        int result = cd.recebeAditivo(adt);
         Assertions.assertEquals(result, -1);
     }
 
-    // fazer parametrizado com outros valores aqui!!!!
-    @Test
-    public void testeRecebeGasolinanegativo() {
-        cd = new CentroDistribuicao(0, 0, 1250, 1250);
-        int result = cd.recebeGasolina(-10);
-        Assertions.assertEquals(result, -1);
-    }
-
-    @Test
-    public void testeRecebeAlcoolNegativo() {
+    @ParameterizedTest
+    @CsvSource({ "10001",
+    "0",
+    "-2"
+    })
+    public void testeRecebeGasolinaValoresInvalidos(int gas) {
         cd = new CentroDistribuicao(0, 0, 0, 0);
-        int result = cd.recebeAlcool(-10);
+        int result = cd.recebeGasolina(gas);
+        Assertions.assertEquals(result, -1);
+    }
+
+    @ParameterizedTest
+    @CsvSource({ "2501",
+    "0",
+    "-2"
+    })
+    public void testeRecebeAlcoolValoresInvalidos(int al) {
+        cd = new CentroDistribuicao(0, 0, 0, 0);
+        int result = cd.recebeAlcool(al);
         Assertions.assertEquals(result, -1);
     }
 
@@ -143,10 +159,15 @@ public class CentroDistribuicaoTest {
     @Test
     public void testePostoComumSituacaoSobreavisoComMisturaSuficiente() {
         cd = new CentroDistribuicao(249, 5000, 625, 625);
-        int expectedResult[] = new int[] { 244, 4930, 612, 612 };
+
+        double expectedResult[] = new double[] { 244, 4930, 613, 613 };
         int[] result = new int[4];
         result = cd.encomendaCombustivel(200, TIPOPOSTO.COMUM);
-        Assertions.assertArrayEquals(result, expectedResult);
+        double[] resultConverted = new double[4];
+        for (int i = 0; i < 4; i++) {
+            resultConverted[i] = result[i];
+        }
+        Assertions.assertArrayEquals(resultConverted, expectedResult, 1);
     }
 
     @ParameterizedTest
