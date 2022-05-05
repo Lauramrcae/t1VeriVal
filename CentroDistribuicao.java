@@ -21,7 +21,7 @@ public class CentroDistribuicao {
     private SITUACAO situacao;
 
     public CentroDistribuicao(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) throws IllegalArgumentException {
-        if (tAditivo < 0 || tGasolina < 0 || tAlcool1 < 0 || tAlcool2 < 0 || tAlcool1 != tAlcool2)
+        if (tAditivo <= 0 || tGasolina <= 0 || tAlcool1 <= 0 || tAlcool2 <= 0 || tAlcool1 != tAlcool2)
             throw new IllegalArgumentException("ILLEGAL_ARGUMENT_EXCEPTION");
         if (tAditivo > MAX_ADITIVO)
             throw new IllegalArgumentException("ILLEGAL_ARGUMENT_EXCEPTION");
@@ -75,7 +75,7 @@ public class CentroDistribuicao {
     }
 
     public int recebeAditivo(int qtdade) {
-        if (qtdade < 0)
+        if (qtdade <= 0 || qtdade > MAX_ADITIVO)
             return -1;
         if (qtdade + tAditivo > MAX_ADITIVO) {
             int aux = tAditivo;
@@ -87,7 +87,7 @@ public class CentroDistribuicao {
     }
 
     public int recebeGasolina(int qtdade) {
-        if (qtdade < 0)
+        if (qtdade <= 0 || qtdade > MAX_GASOLINA)
             return -1;
         if (qtdade + tGasolina > MAX_GASOLINA) {
             int aux = tGasolina;
@@ -99,7 +99,7 @@ public class CentroDistribuicao {
     }
 
     public int recebeAlcool(int qtdade) {
-        if (qtdade < 0)
+        if (qtdade <= 0 || qtdade > MAX_ALCOOL)
             return -1;
         if (qtdade + tAlcool1 + tAlcool2 > MAX_ALCOOL) {
             int aux = tAlcool1 + tAlcool2;
