@@ -130,7 +130,7 @@ public class CentroDistribuicao {
                 tAditivo -= aditivo;
                 tAlcool1 -= alcool1;
                 tAlcool2 -= alcool2;
-                return new int[] { (int) aditivo, (int) gasolina, (int) alcool1, (int) alcool2 };
+                return new int[] { (int) tAditivo, (int) tGasolina, (int) tAlcool1, (int) tAlcool2 };
             } else
                 return new int[] { -21, 0, 0, 0 };
         }
@@ -142,8 +142,8 @@ public class CentroDistribuicao {
                     tAditivo -= (aditivo / 2);
                     tAlcool1 -= (alcool1 / 2);
                     tAlcool2 -= (alcool2 / 2);
-                    return new int[] { (int) (aditivo / 2), (int) (gasolina / 2), (int) (alcool1 / 2),
-                            (int) (alcool2 / 2) };
+                    return new int[] { (int) (tAditivo), (int) (tGasolina ), (int) (tAlcool1),
+                            (int) (tAlcool2) };
                 }
             } else
                 return new int[] { -21, 0, 0, 0 };
@@ -157,7 +157,7 @@ public class CentroDistribuicao {
             tAditivo -= aditivo;
             tAlcool1 -= alcool1;
             tAlcool2 -= alcool2;
-            return new int[] { (int) aditivo, (int) gasolina, (int) alcool1, (int) alcool2 };
+            return new int[] { (int) (tAditivo), (int) (tGasolina ), (int) (tAlcool1), (int) (tAlcool2) };
         }
 
         return new int[] { -21, 0, 0, 0 };
