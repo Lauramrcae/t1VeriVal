@@ -135,30 +135,22 @@ public class CentroDistribuicao {
                 return new int[] { -21, 0, 0, 0 };
         }
 
-        if (getSituacao() == SITUACAO.SOBRAVISO) {
+        if (getSituacao() == SITUACAO.SOBRAVISO && tipoPosto == TIPOPOSTO.COMUM || tipoPosto == TIPOPOSTO.ESTRATEGICO && getSituacao() == SITUACAO.EMERGENCIA) {
             if (tGasolina >= gasolina && tAditivo >= aditivo && tAlcool1 >= alcool1 && tAlcool2 >= alcool2) {
-                if (tipoPosto == TIPOPOSTO.COMUM) {
+
                     tGasolina -= (gasolina / 2);
                     tAditivo -= (aditivo / 2);
                     tAlcool1 -= (alcool1 / 2);
                     tAlcool2 -= (alcool2 / 2);
                     return new int[] { (int) (tAditivo), (int) (tGasolina ), (int) (tAlcool1),
                             (int) (tAlcool2) };
-                }
+                
             } else
                 return new int[] { -21, 0, 0, 0 };
         }
 
-        if (tipoPosto == TIPOPOSTO.COMUM)
+        if (tipoPosto == TIPOPOSTO.COMUM && getSituacao() == SITUACAO.EMERGENCIA)
             return new int[] { -14, 0, 0, 0 };
-
-        if (tGasolina >= gasolina && tAditivo >= aditivo && tAlcool1 >= alcool1 && tAlcool2 >= alcool2) {
-            tGasolina -= gasolina;
-            tAditivo -= aditivo;
-            tAlcool1 -= alcool1;
-            tAlcool2 -= alcool2;
-            return new int[] { (int) (tAditivo), (int) (tGasolina ), (int) (tAlcool1), (int) (tAlcool2) };
-        }
 
         return new int[] { -21, 0, 0, 0 };
     }
