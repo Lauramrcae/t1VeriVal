@@ -66,21 +66,21 @@ public class CentroDistribuicaoTest {
 
     @Test
     public void testeRecebeAditivoPositivo() {
-        cd = new CentroDistribuicao(0, 10000, 1250, 1250);
-        int result = cd.recebeAditivo(2000);
-        Assertions.assertEquals(result, 500);
+        cd = new CentroDistribuicao(1, 10000, 1250, 1250);
+        int result = cd.recebeAditivo(500);
+        Assertions.assertEquals(result, 499);
     }
 
     @Test
     public void testeRecebeGasolinaPositivo() {
-        cd = new CentroDistribuicao(0, 0, 1250, 1250);
-        int result = cd.recebeGasolina(11000);
-        Assertions.assertEquals(result, 10000);
+        cd = new CentroDistribuicao(1, 1, 1250, 1250);
+        int result = cd.recebeGasolina(10000);
+        Assertions.assertEquals(result, 9999);
     }
 
     @Test
     public void testeRecebeAlcoolPositivo() {
-        cd = new CentroDistribuicao(0, 0, 0, 0);
+        cd = new CentroDistribuicao(1, 1, 1, 1);
         int result = cd.recebeAlcool(900);
         Assertions.assertEquals(result, 900);
     }
@@ -91,7 +91,7 @@ public class CentroDistribuicaoTest {
     "-2"
     })
     public void testeRecebeAditivoValoresInvalidos(int adt) {
-        cd = new CentroDistribuicao(0, 10000, 1250, 1250);
+        cd = new CentroDistribuicao(1, 10000, 1250, 1250);
         int result = cd.recebeAditivo(adt);
         Assertions.assertEquals(result, -1);
     }
@@ -102,7 +102,7 @@ public class CentroDistribuicaoTest {
     "-2"
     })
     public void testeRecebeGasolinaValoresInvalidos(int gas) {
-        cd = new CentroDistribuicao(0, 0, 0, 0);
+        cd = new CentroDistribuicao(1, 1,1, 1);
         int result = cd.recebeGasolina(gas);
         Assertions.assertEquals(result, -1);
     }
@@ -113,7 +113,7 @@ public class CentroDistribuicaoTest {
     "-2"
     })
     public void testeRecebeAlcoolValoresInvalidos(int al) {
-        cd = new CentroDistribuicao(0, 0, 0, 0);
+        cd = new CentroDistribuicao(1, 1, 1, 1);
         int result = cd.recebeAlcool(al);
         Assertions.assertEquals(result, -1);
     }
@@ -131,7 +131,7 @@ public class CentroDistribuicaoTest {
 
     @Test
     public void testePostoComumSituacaoEmergencia() {
-        cd = new CentroDistribuicao(0, 10000, 1250, 1250);
+        cd = new CentroDistribuicao(1, 10000, 1250, 1250);
         int expectedResult[] = new int[4];
         expectedResult[0] = -14;
         Assertions.assertArrayEquals(cd.encomendaCombustivel(250, TIPOPOSTO.COMUM), expectedResult);
