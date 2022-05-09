@@ -130,7 +130,7 @@ public class CentroDistribuicaoTest {
     }
 
     @Test
-    public void testePostoComumSituacaoEmergencia() {
+    public void testeEncomendaPostoComumSituacaoEmergencia() {
         cd = new CentroDistribuicao(1, 10000, 1250, 1250);
         int expectedResult[] = new int[4];
         expectedResult[0] = -14;
@@ -140,7 +140,7 @@ public class CentroDistribuicaoTest {
     @ParameterizedTest
     @CsvSource({ "500,10000,1250,1250,100"
     })
-    public void testePostoComumSituacaoNormalComMisturaSuficiente(int adt, int gas, int al1, int al2, int qtd) {
+    public void testeEncomendaPostoComumSituacaoNormalComMisturaSuficiente(int adt, int gas, int al1, int al2, int qtd) {
         cd = new CentroDistribuicao(adt, gas, al1, al2);
         double qtdAd = adt - qtd * 0.05;
         double qtdG = gas - qtd * 0.7;
@@ -157,7 +157,7 @@ public class CentroDistribuicaoTest {
     }
 
     @Test
-    public void testePostoComumSituacaoSobreavisoComMisturaSuficiente() {
+    public void testeEncomendaPostoComumSituacaoSobreavisoComMisturaSuficiente() {
         cd = new CentroDistribuicao(249, 5000, 625, 625);
 
         double expectedResult[] = new double[] { 244, 4930, 613, 613 };
@@ -174,7 +174,7 @@ public class CentroDistribuicaoTest {
     @CsvSource({ "250,5000,625,625,7500",
             "230,2500,330,330,7200"
     })
-    public void testePostoComumSemMisturaSuficiente(int adt, int gas, int al1, int al2, int qtd) {
+    public void testeEncomendaPostoComumSituacaoNormalSemMisturaSuficiente(int adt, int gas, int al1, int al2, int qtd) {
         cd = new CentroDistribuicao(adt, gas, al1, al2);
         int expectedResult[] = new int[4];
         expectedResult[0] = -21;
@@ -182,31 +182,32 @@ public class CentroDistribuicaoTest {
     }
 
     @Test
-    public void testePostoEstrategicoSituacaoEmergenciaComMisturaSuficiente() {
+    public void testeEncomendaPostoEstrategicoSituacaoEmergenciaComMisturaSuficiente() {
         cd = new CentroDistribuicao(124, 2599, 324, 324);
         int expectedResult[] = new int[] { 119, 2529, 311, 311 };
         Assertions.assertArrayEquals(cd.encomendaCombustivel(200, TIPOPOSTO.ESTRATEGICO), expectedResult);
     }
 
     @Test
-    public void testePostoEstrategicoSituacaoNormalComMisturaSuficiente() {
+    public void testeEncomendaPostoEstrategicoSituacaoNormalComMisturaSuficiente() {
         cd = new CentroDistribuicao(500, 10000, 1250, 1250);
         int expectedResult[] = new int[] { 495, 9930, 1237, 1237 };
         Assertions.assertArrayEquals(cd.encomendaCombustivel(100, TIPOPOSTO.ESTRATEGICO), expectedResult);
     }
 
     @Test
-    public void testePostoEstrategicoSituacaoSobreavisoComMisturaSuficiente() {
+    public void testeEncomendaPostoEstrategicoSituacaoSobreavisoComMisturaSuficiente() {
         cd = new CentroDistribuicao(249, 4999, 649, 649);
         int expectedResult[] = new int[] { 244, 4929, 636, 636 };
         Assertions.assertArrayEquals(cd.encomendaCombustivel(100, TIPOPOSTO.ESTRATEGICO), expectedResult);
     }
 
     @Test
-    public void testePostoEstrategicoSituacaoSobreavisoSemMisturaSuficiente() {
+    public void testeEncomendaPostoEstrategicoSituacaoSobreavisoSemMisturaSuficiente() {
         cd = new CentroDistribuicao(249, 4999, 649, 649);
-        int expectedResult[] = new int[] { 244, 4929, 636, 636 };
-        Assertions.assertArrayEquals(cd.encomendaCombustivel(100, TIPOPOSTO.ESTRATEGICO), expectedResult);
+        int expectedResult[] = new int[4];
+        expectedResult[0] = -21;
+        Assertions.assertArrayEquals(cd.encomendaCombustivel(20000, TIPOPOSTO.ESTRATEGICO), expectedResult);
     }
 
 }
